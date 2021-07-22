@@ -1,13 +1,82 @@
+use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+use wasm_bindgen_futures::JsFuture;
+use web_sys::{Request, RequestInit, RequestMode, Response};
 
-#[wasm_bindgen]
-pub fn get_data() -> String {
-  let mut string = String::new();
-  string.push_str("xxxx");
-  return string;
+//no funca
+//use log::Level;
+//use log::info;
+
+/// A struct to hold some data from the github Branch API.
+///
+/// Note how we don't have to define every member -- serde will ignore extra
+/// data when deserializing
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Branch {
+    pub name: String,
+    pub commit: Commit,
 }
 
-//compilar:
-/*
-wasm-pack build --target web
-*/
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Commit {
+    pub sha: String,
+    pub commit: CommitDetails,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CommitDetails {
+    pub author: Signature,
+    pub committer: Signature,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Signature {
+    pub name: String,
+    pub email: String,
+}
+
+#[wasm_bindgen]
+extern {
+    //llamando funciones de js
+    pub fn alert(s: &str);
+}
+
+
+#[wasm_bindgen]
+pub async fn run(repo: String) -> Result<JsValue, JsValue> {
+    //console_log::init_with_level(Level::Debug);
+
+    //info!("It works!");
+    
+
+    let mut opts = RequestInit::new();
+    opts.method("GET");
+    opts.mode(RequestMode::Cors);
+
+    //https://api.github.com/repos/eacevedof/prj_js/branches/master
+    let url = format!("https://api.github.com/repos/{}/branches/master", repo);
+    alert(&url);
+
+    let request = Request::new_with_str_and_init(&url, &opts)?;
+
+    request
+        .headers()
+        .set("Accept", "application/vnd.github.v3+json")?;
+
+    let window = web_sys::window().unwrap();
+    let resp_value = JsFuture::from(window.fetch_with_request(&request)).await?;
+
+    // `resp_value` is a `Response` object.
+    assert!(resp_value.is_instance_of::<Response>());
+    let resp: Response = resp_value.dyn_into().unwrap();
+
+    // Convert this other `Promise` into a rust `Future`.
+    let json = JsFuture::from(resp.json()?).await?;
+
+    // Use serde to parse the JSON into a struct.
+    let branch_info: Branch = json.into_serde().unwrap();
+
+    // Send the `Branch` struct back to JS as an `Object`.
+    Ok(JsValue::from_serde(&branch_info).unwrap())
+}
