@@ -14,14 +14,27 @@ const _async_run = (async () => {
   document.getElementById("result").innerText = `Data got: ${string}`;
 })
 
-const async_run = (( ) =>{
+
+const x = (( ) =>{
   //console.log(run())
-  init().then(()=> run("")).then(r => console.log(r))
-
-  //const r = run("rustwasm/wasm-bindgen")
-  //console.log("r",r)
-
+  init()
+    .then(() => run("prj_js"))
+    .then(r => console.log("result as promise:",r))
 })()
+
+const y = (async ( ) =>{
+  //carga el módulo wasm
+  const r = await init()
+  //ya existe la función run
+  const r2 = await run("prj_js")
+  console.log("r2", r2)
+  const string = JSON.stringify(r2, null, 2)
+  console.log("string:", string)
+  
+  // Set the result onto the body
+  document.getElementById("result").innerText = string
+
+})
 
 
 

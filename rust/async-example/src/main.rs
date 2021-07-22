@@ -46,16 +46,13 @@ extern {
 #[wasm_bindgen]
 pub async fn run(repo: String) -> Result<JsValue, JsValue> {
     //console_log::init_with_level(Level::Debug);
-
-    //info!("It works!");
-    
-
+    //info!("It works!");    
     let mut opts = RequestInit::new();
     opts.method("GET");
     opts.mode(RequestMode::Cors);
 
     //https://api.github.com/repos/eacevedof/prj_js/branches/master
-    let url = format!("https://api.github.com/repos/eacevedof/prj_js{}/branches/master", repo);
+    let url = format!("https://api.github.com/repos/eacevedof/{}/branches/master", repo);
     //alert(&url);
 
     let request = Request::new_with_str_and_init(&url, &opts)?;
