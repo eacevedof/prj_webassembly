@@ -1,14 +1,28 @@
 import init from "/pkg/fetcher.js";
 
-const async_run = (async () => {
+const _async_run = (async () => {
   // Instantiate our wasm module
   const module = await init("/pkg/fetcher_bg.wasm")
+  console.log("module",module)
+  const x = module.run("xxx")
+  console.log("xxxx",x)
   const r = await module.run("prj_js")
   console.log("result:",r)
   const string = JSON.stringify(r)
   
   // Set the result onto the body
   document.getElementById("result").innerText = `Data got: ${string}`;
+})
+
+const async_run = (( ) =>{
+  init()
+  .then(m => {
+      console.log("mmmm",m)
+      const r = m.run("rustwasm/wasm-bindgen")
+      console.log("r",r)
+  })
+  .catch(console.error)
+
 })()
 
 

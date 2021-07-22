@@ -55,8 +55,8 @@ pub async fn run(repo: String) -> Result<JsValue, JsValue> {
     opts.mode(RequestMode::Cors);
 
     //https://api.github.com/repos/eacevedof/prj_js/branches/master
-    let url = format!("https://api.github.com/repos/{}/branches/master", repo);
-    alert(&url);
+    let url = format!("https://api.github.com/repos/eacevedof/prj_js{}/branches/master", repo);
+    //alert(&url);
 
     let request = Request::new_with_str_and_init(&url, &opts)?;
 
