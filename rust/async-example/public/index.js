@@ -20,7 +20,7 @@ const x = (( ) =>{
   init()
     .then(() => run("prj_js"))
     .then(r => console.log("result as promise:",r))
-})()
+})
 
 const y = (async ( ) =>{
   //carga el módulo wasm
@@ -34,8 +34,9 @@ const y = (async ( ) =>{
   // Set the result onto the body
   document.getElementById("result").innerText = string
 
-})
+})()
 
+console.log("y",y)
 
 
 /*
