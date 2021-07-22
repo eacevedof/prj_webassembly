@@ -79,4 +79,5 @@ pub async fn run(repo: String) -> Result<JsValue, JsValue> {
 
     // Send the `Branch` struct back to JS as an `Object`.
     Ok(JsValue::from_serde(&branch_info).unwrap())
+    //Ok("hola")
 }

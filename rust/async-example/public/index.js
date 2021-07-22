@@ -1,4 +1,4 @@
-import init from "/pkg/fetcher.js";
+import init, {run} from "/pkg/fetcher.js";
 
 const _async_run = (async () => {
   // Instantiate our wasm module
@@ -15,13 +15,11 @@ const _async_run = (async () => {
 })
 
 const async_run = (( ) =>{
-  init()
-  .then(m => {
-      console.log("mmmm",m)
-      const r = m.run("rustwasm/wasm-bindgen")
-      console.log("r",r)
-  })
-  .catch(console.error)
+  //console.log(run())
+  init().then(()=> run("")).then(r => console.log(r))
+
+  //const r = run("rustwasm/wasm-bindgen")
+  //console.log("r",r)
 
 })()
 
