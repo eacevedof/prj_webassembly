@@ -11,3 +11,8 @@ pub fn greet(name: &str) {
     //función exportable para que se pueda usar en js
     alert(&format!("Hello, {}!", name));
 }
+
+//compilar:
+/*
+wasm-pack build --target web
+*/
