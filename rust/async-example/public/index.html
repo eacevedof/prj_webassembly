@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Async-Example example</title>
+</head>
+<body>
+<h1>Async Example</h1>
+<div id="result"></div>
+<script type="module">
+  import init from "/pkg/fetcher.js";
+
+  const runWasm = async () => {
+    // Instantiate our wasm module
+    const module = await init("./pkg/fetcher_bg.wasm");
+    console.log("module.", module)
+    // Call the Add function export from wasm, save the result
+    const string = module.get_data("xxx")
+  
+    // Set the result onto the body
+    document.getElementById("result").innerText = `Data got: ${string}`;
+  };
+  runWasm();
+</script>
+</body>
+</html>
