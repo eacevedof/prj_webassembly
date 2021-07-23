@@ -2,10 +2,11 @@ compile:
 	GOARCH=wasm GOOS=js go build -o main.wasm main.go
 
 copy:
-	cp $(go env GOROOT)/misc/wasm/wasm_exec.{html,js} .
+	cp /usr/local/Cellar/go/1.16.6/libexec/misc/wasm/wasm_exec.{html,js} .
 
 serve:
 	go run server.go
 
 
-# ioedu@mbp2014  ~/projects/prj_webassembly/golang/hello-world   main ●  cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" .
+# go env GOROOT = /usr/local/Cellar/go/1.16.6/libexec
+# /usr/local/Cellar/go/1.16.6/libexec/misc/wasm
