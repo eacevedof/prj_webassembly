@@ -7,11 +7,3 @@ export PATH=$PATH:$GOPATH/bin
 
 . ~/.bash_profile
 ```
-- **compilar para webassembly**
-```
-compile:
-    GOARCH=wasm GOOS=js go build -o main.wasm main.go
-```
-- GOARCH: Arquitectura 
-- GOOS: Sistema operativo
-- **-o**: Output

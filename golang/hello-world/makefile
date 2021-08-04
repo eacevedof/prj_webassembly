@@ -1,5 +1,4 @@
 compile:
-	# building for webassembly
 	GOARCH=wasm GOOS=js go build -o main.wasm main.go
 
 copy:
