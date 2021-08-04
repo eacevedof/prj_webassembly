@@ -19,7 +19,6 @@ func main() {
 		if strings.HasSuffix(req.URL.Path, ".wasm") {
 			resp.Header().Set("content-type", "application/wasm")
 		}
-
 		http.FileServer(http.Dir(*dir)).ServeHTTP(resp, req)
 	})))
 }
