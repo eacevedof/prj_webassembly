@@ -14,6 +14,14 @@ func callable_from_js(this js.Value, inputs []js.Value) interface{} {
     return this
 }
 
+func callbacker(this js.Value, inputs []js.Value) interface{} {
+    function := inputs[len(inputs)-1:][0]
+    message := inputs[0].String()
+
+    function.Invoke(js.Null(), "Did you say " + message)
+    return this
+}
+
 func init() {
     channel = make(chan bool)
 }
@@ -27,5 +35,6 @@ func main() {
     // func main must have no arguments and no return values
     //return strproducts
     js.Global().Set("callable_from_js", js.FuncOf(callable_from_js))
+    js.Global().Set("callbacker", js.FuncOf(callbacker))
     <-channel
 }

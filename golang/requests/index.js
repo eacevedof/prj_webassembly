@@ -31,3 +31,4 @@ async function run() {
 	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
 	console.log("run.wasminstance", wasminstance)
 }
+
