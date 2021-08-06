@@ -27,6 +27,6 @@ async function run() {
 	console.log("async run executed")
 	r = await go.run(wasminstance);
 	console.log("run.r:", r)
-	//wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
-	//console.log("run.wasminstance", wasminstance)
+	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
+	console.log("run.wasminstance", wasminstance)
 }

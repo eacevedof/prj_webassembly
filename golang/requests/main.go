@@ -8,7 +8,7 @@ import (
 
 var channel chan bool
 
-func printM(this js.Value, inputs []js.Value) interface{} {
+func printJs(this js.Value, inputs []js.Value) interface{} {
     fmt.Println(inputs[0].String())
     channel <- true
     return this
@@ -22,10 +22,10 @@ func main() {
     //interact js from go
     //strproducts := request.FetchProducts()
     //fmt.Println(strproducts)
-    fmt.Println("returning")
+    //fmt.Println("returning")
 
     // func main must have no arguments and no return values
     //return strproducts
-    js.Global().Set("printM", js.FuncOf(printM))
+    js.Global().Set("printJs", js.FuncOf(printJs))
     <-channel
 }
