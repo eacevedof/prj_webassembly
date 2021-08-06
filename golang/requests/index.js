@@ -14,13 +14,13 @@ let wasmmodule, wasminstance;
 
 WebAssembly
 	.instantiateStreaming(fetch("main.wasm"), go.importObject)
-	.then((result) => {
+	.then( result => {
 		wasmmodule = result.module;
 		wasminstance = result.instance;
 		document.getElementById("btn-run").disabled = false;
 		console.log("initiatestreming run ok","wasm-module",wasmmodule, typeof wasmmodule, "wasm-instance",wasminstance, typeof wasminstance)
 	})
-	.catch((err) => {
+	.catch( err => {
 		console.error(err);
 	});
 
@@ -28,6 +28,8 @@ async function run() {
 	console.log("async run executed")
 	const r = await go.run(wasminstance);
 	console.log("run.r:", r)
+    const msg = await promise_callbacker("xxxxx")
+    console.log("MSG:",msg)
 	//wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
 	//console.log("run.wasminstance", wasminstance)
 }
@@ -57,8 +59,8 @@ function promise_callbacker(msg) {
 }
 
 (async () => {
-    console.log("main async anonym")
-    const r = await go.run(wasminstance);
-    let msg = await promise_callbacker("xxxxx")
-    console.log("MSG:",msg)
+    //console.log("main async anonym")
+    //const r = await go.run(wasminstance);
+    //let msg = await promise_callbacker("xxxxx")
+    //console.log("MSG:",msg)
 })()
