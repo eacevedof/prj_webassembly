@@ -26,9 +26,39 @@ WebAssembly
 
 async function run() {
 	console.log("async run executed")
-	r = await go.run(wasminstance);
+	const r = await go.run(wasminstance);
 	console.log("run.r:", r)
-	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
-	console.log("run.wasminstance", wasminstance)
+	//wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
+	//console.log("run.wasminstance", wasminstance)
 }
 
+/*
+callbacker('JS calling Go and back again!', (err, message) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+
+    console.log("messg:",message);
+});
+*/
+
+function promise_callbacker(msg) {
+    return new Promise((resolve, reject) => {
+        callbacker(msg, (err, message) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            resolve(message);
+        })
+    })
+}
+
+(async () => {
+    console.log("main async anonym")
+    const r = await go.run(wasminstance);
+    let msg = await promise_callbacker("xxxxx")
+    console.log("MSG:",msg)
+})()
