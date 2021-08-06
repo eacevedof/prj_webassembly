@@ -10,6 +10,7 @@ var channel chan bool
 
 func printM(this js.Value, inputs []js.Value) interface{} {
     fmt.Println("printer")
+    fmt.Println(inputs[0].String())
     channel <- true
 
     return this
