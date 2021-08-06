@@ -10,7 +10,7 @@ var channel chan bool
 
 func callable_from_js(this js.Value, inputs []js.Value) interface{} {
     fmt.Println(inputs[0].String())
-    channel <- true
+    //channel <- true
     return this
 }
 
