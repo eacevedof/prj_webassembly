@@ -13,17 +13,23 @@ if (!WebAssembly.instantiateStreaming) {
 
 const go = new Go();
 let mod, inst;
-WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
-	mod = result.module;
-	inst = result.instance;
-	document.getElementById("btn-run").disabled = false;
-}).catch((err) => {
-	console.error(err);
-});
+WebAssembly
+	.instantiateStreaming(fetch("main.wasm"), go.importObject)
+	.then((result) => {
+		mod = result.module;
+		inst = result.instance;
+		document.getElementById("btn-run").disabled = false;
+		console.log("initiatestreming run ok","mod",mod, typeof mod, "instance",inst, typeof inst)
+	})
+	.catch((err) => {
+		console.error(err);
+	});
 
 async function run() {
 	console.clear();
-	await go.run(inst);
+	console.log("async run executed")
+	r = await go.run(inst);
+	console.log("r:", r)
 	inst = await WebAssembly.instantiate(mod, go.importObject);
 }
 </script>
