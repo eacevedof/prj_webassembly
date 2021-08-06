@@ -8,7 +8,7 @@ import (
 
 var channel chan bool
 
-func printJs(this js.Value, inputs []js.Value) interface{} {
+func callable_from_js(this js.Value, inputs []js.Value) interface{} {
     fmt.Println(inputs[0].String())
     channel <- true
     return this
@@ -26,6 +26,6 @@ func main() {
 
     // func main must have no arguments and no return values
     //return strproducts
-    js.Global().Set("printJs", js.FuncOf(printJs))
+    js.Global().Set("callable_from_js", js.FuncOf(callable_from_js))
     <-channel
 }
