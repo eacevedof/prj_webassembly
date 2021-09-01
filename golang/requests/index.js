@@ -23,9 +23,7 @@ WebAssembly
 	.catch( err => {
 		console.error(err);
 	});
-622162792
 
-622152792
 async function run() {
 	console.log("async run executed")
 	const r = await go.run(wasminstance);
