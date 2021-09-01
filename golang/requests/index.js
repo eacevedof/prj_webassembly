@@ -23,15 +23,17 @@ WebAssembly
 	.catch( err => {
 		console.error(err);
 	});
+622162792
 
+622152792
 async function run() {
 	console.log("async run executed")
 	const r = await go.run(wasminstance);
 	console.log("run.r:", r)
     const msg = await promise_callbacker("xxxxx")
     console.log("MSG:",msg)
-	//wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
-	//console.log("run.wasminstance", wasminstance)
+	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
+	console.log("run.wasminstance", wasminstance)
 }
 
 /*

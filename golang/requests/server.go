@@ -7,11 +7,14 @@ import (
 	"strings"
 )
 
-
 var (
 	listen = flag.String("listen", ":8080", "listen address")
 	dir    = flag.String("dir", ".", "directory to serve")
 )
+
+/*
+go run server.go permite arrancar un servidor que ofrece wasm como tipo mime. Con liveserver de vscode no tira por esto mismo
+*/
 
 func main() {
 	flag.Parse()
