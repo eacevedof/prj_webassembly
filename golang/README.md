@@ -15,3 +15,6 @@ GOARCH=wasm GOOS=js go build -o main.wasm main.go
 - GOARCH: Arquitectura 
 - GOOS: Sistema operativo
 - **-o**: Output
+
+- **ejecutar go el http con go**
+- `go run server.go`

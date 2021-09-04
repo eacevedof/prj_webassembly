@@ -1,4 +1,6 @@
+//https://www.aaron-powell.com/posts/2019-02-07-golang-wasm-4-response-to-javascript/
 console.log("index.js")
+
 //polyfill
 if (!WebAssembly.instantiateStreaming) {
 	console.log("!instantiateStreaming")
@@ -25,10 +27,11 @@ WebAssembly
 	});
 
 async function run() {
-	console.log("async run executed")
+	console.log("async run executed", wasminstance)
 	const r = await go.run(wasminstance);
 	console.log("run.r:", r)
-    const msg = await promise_callbacker("xxxxx")
+    //const msg = await callable_from_js("xxxxx")
+    const msg = await promise_callbacker("yyyy")
     console.log("MSG:",msg)
 	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
 	console.log("run.wasminstance", wasminstance)
