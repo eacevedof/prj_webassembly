@@ -28,13 +28,10 @@ WebAssembly
 	});
 
 async function run() {
-	console.log("async run executed", wasminstance)
-	await go.run(wasminstance);
-    //const msg = await callable_from_js("xxxxx")
-    const r = await callbacker("yyyy")
-    console.log("callbacker result:",r)
-	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
-    alert("run end")
+    console.log("main async anonym")
+    const r = await go.run(wasminstance);
+    let msg = await callbacker("cccc-aaalll-bbb")
+    console.log("MSG:",msg)
 }
 
 /*
