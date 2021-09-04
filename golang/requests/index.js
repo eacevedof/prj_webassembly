@@ -23,18 +23,18 @@ WebAssembly
 		console.log("initiatestreming run ok","wasm-module",wasmmodule, typeof wasmmodule, "wasm-instance",wasminstance, typeof wasminstance)
 	})
 	.catch( err => {
+        console.log("ERROR Webassembly instanteateStreaming:")
 		console.error(err);
 	});
 
 async function run() {
 	console.log("async run executed", wasminstance)
-	const r = await go.run(wasminstance);
-	console.log("run.r:", r)
+	await go.run(wasminstance);
     //const msg = await callable_from_js("xxxxx")
-    const msg = await promise_callbacker("yyyy")
-    console.log("MSG:",msg)
+    const r = await callbacker("yyyy")
+    console.log("callbacker result:",r)
 	wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject);
-	console.log("run.wasminstance", wasminstance)
+    alert("run end")
 }
 
 /*
