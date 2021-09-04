@@ -11,9 +11,10 @@ if (!WebAssembly.instantiateStreaming) {
 }
 
 //clase dentro de wasm_exec.js
-const go = new Go();
-let wasmmodule, wasminstance;
+//const go = new Go();
+//let wasmmodule, wasminstance;
 
+/*
 WebAssembly
 	.instantiateStreaming(fetch("main.wasm"), go.importObject)
 	.then( result => {
@@ -26,13 +27,24 @@ WebAssembly
         console.log("ERROR Webassembly instanteateStreaming:")
 		console.error(err);
 	});
+*/
 
-async function run() {
-    console.log("main async anonym")
-    const r = await go.run(wasminstance);
-    let msg = await callbacker("cccc-aaalll-bbb")
-    console.log("MSG:",msg)
+async function on_btnclick() {
+    //await go.run(wasminstance)
+    const r = await promise_callbacker("rrrrrr")
+    console.log(r)
+    //debugger;
+    //wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject)
 }
+
+
+async function init() {
+    const go = new Go();
+    let result = await WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject)
+    document.getElementById("btn-run").disabled = false;
+    go.run(result.instance)
+}
+init();
 
 /*
 callbacker('JS calling Go and back again!', (err, message) => {

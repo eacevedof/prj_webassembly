@@ -22,19 +22,13 @@ func callbacker(this js.Value, inputs []js.Value) interface{} {
 	return this
 }
 
-func printMessage(this js.Value, inputs []js.Value) interface{} {
-	callback := inputs[len(inputs)-1:][0]
-	message := inputs[0].String()
-
-	callback.Invoke(js.Null(), "printMessage :): "+message)
-	return this
-}
-
 func init() {
-	channel = make(chan bool)
+	//channel = make(chan bool)
 }
 
 func main() {
+	channel = make(chan bool)
+	//channel := make(chan bool)
 	//interact js from go
 	//strproducts := request.FetchProducts()
 	//fmt.Println(strproducts)
@@ -44,6 +38,5 @@ func main() {
 	//return strproducts
 	//js.Global().Set("callable_from_js", js.FuncOf(callable_from_js))
 	js.Global().Set("callbacker", js.FuncOf(callbacker))
-	js.Global().Set("printMessage", js.FuncOf(printMessage))
 	<-channel
 }
