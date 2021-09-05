@@ -1,43 +1,36 @@
 package main
 
 import (
-	"fmt"
 	"request"
 	"syscall/js"
 )
 
 var channel chan bool
 
-func callable_from_js(this js.Value, inputs []js.Value) interface{} {
-	fmt.Println(inputs[0].String())
-	//channel <- true
-	return this
-}
+//tutorial
+//https://tutorialedge.net/golang/go-webassembly-tutorial/
 
-func callbacker(this js.Value, inputs []js.Value) interface{} {
-	function := inputs[len(inputs)-1:][0]
-	message := inputs[0].String()
-
-	function.Invoke(js.Null(), "Did you say "+message)
-	return this
-}
-
-func get_products(this js.Value, inputs []js.Value) interface{} {
+func get_products(inputs []js.Value) {
 	function := inputs[len(inputs)-1:][0]
 	strproducts := request.FetchProducts()
 	//fmt.Println(strproducts)
 	function.Invoke(js.Null(), strproducts)
-	return this
-}
-
-func init() {
-	//channel = make(chan bool)
 }
 
 func main() {
+	// main.go no es una libreria es una app compilada, luego la forma de comunicarse con wasm es mediante el canal
+	//abre listener de ejecucion
 	channel = make(chan bool)
 
 	js.Global().Set("get_products", js.FuncOf(get_products))
-	js.Global().Set("callbacker", js.FuncOf(callbacker))
+	//cierra el canal
 	<-channel
+
+	/*
+			c := make(chan struct{}, 0)
+		    println("WASM Go Initialized")
+		    // register functions
+		    registerCallbacks()
+		    <-c
+	*/
 }
