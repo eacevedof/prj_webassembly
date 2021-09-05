@@ -27,12 +27,8 @@ function promise_callbacker(msg) {
   })
 }
 
-
 async function on_btnclick() {
-  //await go.run(wasminstance)
-  const r = await promise_callbacker("rrrrrr")
-  console.log(r)
-  //debugger;
-  //wasminstance = await WebAssembly.instantiate(wasmmodule, go.importObject)
+  const r = await promise_callbacker("from js")
+  console.log("print-response:",r)
 }
 
