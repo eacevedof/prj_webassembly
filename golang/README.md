@@ -18,3 +18,6 @@ GOARCH=wasm GOOS=js go build -o main.wasm main.go
 
 - **ejecutar go el http con go**
 - `go run server.go`
+
+#### Tutorial
+- [wasm y go](https://tutorialedge.net/golang/go-webassembly-tutorial/)
